@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Login and Registration</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Optional theme --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <p class="h1">Register Here!</p>
+            <div class="form-group row">
+                <form action="/register" method="post">
+
+                    <label> First Name: </label> 
+                    {% with errors = get_flashed_messages(category_filter=["firstname"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <input type="text" class="form-control" name="first_name" value=""/> 
+
+                    <label> Last Name: </label>  
+                    {% with errors = get_flashed_messages(category_filter=["lastname"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <input type="text" class="form-control" name="last_name" value=""/>
+
+                    <label> Email: </label>
+                    {% with errors = get_flashed_messages(category_filter=["email"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                            <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <input type="text" class="form-control" name="email" value=""/>
+
+                    <label>Password</label> 
+                    {% with errors = get_flashed_messages(category_filter=["password"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                        <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <input type="password" class="form-control" name="password" value=""/>
+
+                    <label>Confirm Password</label> 
+                    {% with errors = get_flashed_messages(category_filter=["pwconfirm"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                        <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    <input type="password" class="form-control" name="pwconfirm" value=""/>
+
+                    <input type="submit" value="Register" class="blue">
+                </form>
+            </div>
+            <p class="h3"> Login Here! </p>
+            {% with errors = get_flashed_messages(category_filter=["login"]) %}
+            {% if errors %}
+                {% for msg in errors %}
+                <p class="error">{{ msg }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+            <div class="form-group row">
+                <form action='/login' method='post'>
+                    <label>Email:</label>
+                    <input type='text' class="form-control" name="elog" value=""/>
+                    <label>Password:</label>
+                    <input type='password' class="form-control" name="plog" value=""/>
+
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

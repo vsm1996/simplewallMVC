@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Simplified Wall</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- Optional theme --> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <div class ="">
+                <p> Welcome {{name}}!!</p>
+                <form action="/logout" method="GET">
+                    <input type="submit" value="Logout"/>
+                </form>
+            </div>
+            {% with errors = get_flashed_messages(category_filter=["login"]) %}
+            {% if errors %}
+                {% for msg in errors %}
+                <p class="error">{{ msg }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class = "middle">
+                <div class = "showmess">
+                    <p class="h4"> {{amountreceived}} Message(s) for {{name}}</p>
+                    {% for user in senders%}
+                    <p> {{user['first_name']}} <em>{{user['created_at']}}</em></p>
+                    <p> {{user['content']}} </p>
+                   
+                    <form action="/delete" method="post">
+                        <!--replace delete value with trash icon???-->
+                        <input type="hidden" name="delid" value="{{user['id']}}"/>
+                        <input type="submit" value="delete"/>
+                    </form>
+                    <br/>
+                    {%endfor%}
+                </div>
+
+
+                <div class = "sendmess">
+                    <p class="h4"> Send a message.</p>
+                    <p> You have sent a total of {{amountsent}} messages so far.</p>
+                    {% with errors = get_flashed_messages(category_filter=["posted"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                        <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+
+                    {% for user in users %}
+                    <label for="sendmess"> {{user['first_name']}}</label>
+                    <form action="/create_mess" method="post">
+                            <input type="hidden" name="hiddenid" value="{{user['id']}}"/>
+
+                            <textarea name="message"> </textarea>
+                            <input type="submit" value="Send"/>
+                    </form>
+                    {%endfor%}
+                </div>
+            </div>
+
+        </div>
+            
+    </body>
+</html>
