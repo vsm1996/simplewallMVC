@@ -136,7 +136,31 @@ class Login():
         session['logged_in'] = False
         flash("You have been logged out... ")
         return True
+    
+    def createPost(self):
+        print("creating post!", request.form['post'])
+        if len(request.form['post']) <=1:
+            flash("This field if required", 'dashpost')
+        elif len(request.form['post']) > 140:
+            flash("Post must be 140 characters or less", 'dashpost')
         
+        self.debugHelp("SEND METHOD")
+        if '_flashes' in session.keys():
+            return False;
+        else:
+            print("HERE IS POST: ", request.form)
+
+            query = "INSERT INTO posts (content, user_id, created_at, updated_at) VALUES(%(content)s, %(user_id)s, NOW(), NOW());"
+            data = {
+                'content': request.form['post'],
+                'user_id': session['user_id'],
+            }
+            post = mysql.query_db(query, data)
+
+            query = "SELECT id from posts"
+            createdPost = mysql.query_db(query)
+            print("YOUR POST HERE: ", createdPost)
+            return True
 
 
     def send(self):
@@ -176,6 +200,15 @@ class Login():
         delete = mysql.query_db(query, data)
         print("DELETED: ", delete)
         return True
+    
+    def deletePost(self):
+        query = "DELETE FROM posts WHERE id = %(id)s"
+        data = {
+            'id' : request.form['delid']
+        }
+        delete = mysql.query_db(query, data)
+        print("DELETED: ", delete)
+        return True
 
 
     def success(self):
@@ -206,6 +239,14 @@ class Login():
             print ("HERE IS ALL SENDER INFO: ", sender_names)
 
             all_senders = sender_names
+
+            query = "SELECT * FROM posts  JOIN users ON users.id = posts.user_id;"
+
+            posts = mysql.query_db(query)
+
+            print ("HERE IS ALL USER POSTS: ", posts)
+
+            all_posts = posts
             
 
             query = "SELECT COUNT(*) from messages where user_id = %(id)s"
@@ -217,7 +258,6 @@ class Login():
             print("AMOUNT OF MESSAGES SENT: ", session['sent'])
 
 
-
             query = "SELECT COUNT(*) from messages where receiver_id = %(id)s"
             data = {
                 'id' : session['user_id']
@@ -226,7 +266,7 @@ class Login():
 
             session['received'] = num_received[0]['COUNT(*)']
             print("AMOUNT OF MESSAGES RECEIVED: ", session['received'])
-            return other_users, all_senders
+            return other_users, all_senders, all_posts
 
     def debugHelp(self, message = ""):
         print("\n\n-----------------------", message, "--------------------")

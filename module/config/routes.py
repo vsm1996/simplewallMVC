@@ -34,8 +34,15 @@ def send():
 def delete():
     return logins.delete()
 
+@app.route("/deletePost", methods= ['POST'])
+def deletePost():
+    return logins.deletePost()
+
 
 @app.route("/success")
 def success():
     return logins.success()
 
+@app.route("/create_post", methods=['POST'])
+def createPost():
+    return logins.createPost()

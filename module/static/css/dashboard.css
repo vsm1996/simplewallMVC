@@ -4,6 +4,11 @@ body{
     background: url('../img/green_dust_scratch.png');
 }
 
-.wrapper{
-    text-align: center;
+
+.messages{
+    display: inline-block;
+}
+
+.posts{
+    display: inline-block;
 }

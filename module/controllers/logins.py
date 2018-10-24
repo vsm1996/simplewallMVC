@@ -48,14 +48,25 @@ class Logins():
         result6 = login.delete()
         print("THIS ONE: ", result6)
         return redirect('/success')
-
+    
+    def deletePost(self):
+        result7 = login.deletePost()
+        print("THIS POST IS BEING DELETED: ", result7)
+        return redirect('/success')
 
 
     def success(self):
-        result7 = login.success()
-        print("THIS IS 7: ", result7)
-        if result7 == False:
+        result8 = login.success()
+        print("THIS IS 8: ", result8)
+        if result8 == False:
             return redirect('/')
         else:
-            return render_template('success.html', name = session['first_name'], users = result7[0], senders = result7[1], amountsent = session['sent'], amountreceived = session['received'])
+            return render_template('success.html', name = session['first_name'], users = result8[0], senders = result8[1], posts = result8[2], amountsent = session['sent'], amountreceived = session['received'])
+    
+    def createPost(self):
+        result9 = login.createPost()
+        if result9 == True:
+            return redirect('/success')
+        else: 
+            return redirect('/sucess')
 

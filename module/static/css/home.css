@@ -1,6 +1,44 @@
 body{
-    text-align: center;
-    font-style: AppleGothic;
     background: url('../img/green_dust_scratch.png');
+}
+.container{
+    border: solid pink;
+    padding: 2%;
+}
+.h1{
+    font-size: 70px;
+    text-shadow: 1.5px 1.5px #5a5a5a;
+    color: rgb(255, 255, 255);
+    position: absolute;
+    display: inline-block;
+}
+
+.h2{
+    text-align:center;
+}
+
+.logo{
+    display: block;
+    width: 250px;
+    margin-top: 35%;
+    margin-left: 25%;
+}
+
+.left{
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 20%;
+    margin-left: 10%;
+}
+.right{
+    border: solid cornflowerblue;
+    display: inline-block;
+    padding: 1%;
+    margin-left: 31%;
+}
+a{
+    display: block;
+    margin-left: 43.5%;
 }
 
