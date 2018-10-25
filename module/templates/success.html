@@ -12,12 +12,11 @@
 
     <body>
         <div class="wrapper">
-            <div class ="">
+            <div class ="header">
                 <form action="/logout" method="GET">
-                    <input type="submit" value="Logout"/>
+                    <input type="submit" value="Logout">
                 </form>
                 <p class="h1"> Welcome {{name}}!!</p>
-                
             </div>
             {% with errors = get_flashed_messages(category_filter=["login"]) %}
             {% if errors %}
@@ -39,6 +38,7 @@
                         <input type="hidden" name="delid" value="{{user['id']}}"/>
                         <input type="submit" value="delete"/>
                     </form>
+                    <!-- get rid of this-->
                     <br/>
                     {%endfor%}
                 </div>
@@ -59,7 +59,6 @@
                     <label> {{user['first_name']}}</label>
                     <form action="/create_mess" method="post">
                             <input type="hidden" name="hiddenid" value="{{user['id']}}"/>
-
                             <textarea name="message"> </textarea>
                             <input type="submit" value="Send"/>
                     </form>
@@ -68,39 +67,36 @@
             </div>
             <div class="posts">
                 <div class = "createpost">
-                        <p class="h4"> Create a post.</p>
-                        {% with errors = get_flashed_messages(category_filter=["dashpost"]) %}
-                        {% if errors %}
-                            {% for msg in errors %}
-                            <p class="error">{{ msg }}</p>
-                            {% endfor %}
-                        {% endif %}
-                        {% endwith %}
+                    <p class="h4"> Create a post.</p>
+                    {% with errors = get_flashed_messages(category_filter=["dashpost"]) %}
+                    {% if errors %}
+                        {% for msg in errors %}
+                        <p class="error">{{ msg }}</p>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
     
-                        <label> Post </label>
-                        <form action="/create_post" method="post">
-                                <textarea name="post"> </textarea>
-                                <input type="submit" value="Post"/>
-                        </form>
+                    <label> Post </label>
+                    <form action="/create_post" method="post">
+                        <textarea name="post"> </textarea>
+                        <input type="submit" value="Post"/>
+                    </form>
 
-                        <div class = "showposts">
-                                <p class="h4"> Posts </p>
-                                {% for post in posts %}
-                                <p> {{post['first_name']}} <em>{{post['created_at']}}</em></p>
-                                <p> {{post['content']}} </p>
-                                <form action="/deletePost" method="post">
-                                    <!--replace delete value with trash icon???-->
-                                    <input type="hidden" name="delid" value="{{post['id']}}"/>
-                                    <input type="submit" value="delete"/>
-                                </form>
-                                <br/>
-                                {%endfor%}
-                            </div>
-                </div>
+                    <div class = "showposts">
+                        <p class="h4"> Posts </p>
+                        {% for post in posts %}
+                        <p> {{post['first_name']}} <em>{{post['created_at']}}</em></p>
+                        <p> {{post['content']}} </p>
+                        <form action="/deletePost" method="post">
+                            <!--replace delete value with trash icon???-->
+                            <input type="hidden" name="delid" value="{{post['id']}}"/>
+                            <input type="submit" value="delete"/>
+                        </form>
+                        <br/>
+                        {%endfor%}
+                    </div>
                 </div>
             </div>
-
-        </div>
-            
+        </div>     
     </body>
 </html>
